@@ -2,13 +2,13 @@ import { Component } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
 import { RiAlarmWarningLine } from 'react-icons/ri';
 //Components
-import Button from './Components/Button';
-import ImageGallery from './Components/ImageGallery';
-import Modal from './Components/Modal';
-import Searchbar from './Components/Searchbar';
+import Button from 'Components/Button/Button';
+import ImageGallery from 'Components/ImageGallery/ImageGallery';
+import Modal from 'Components/Modal/Modal';
+import Searchbar from 'Components/Searchbar/Searchbar';
 //Utils
-import { getImagesData } from './utils/fetch';
-import { smoothScrollToDown } from './utils/smoothScroll';
+import { getImagesData } from 'utils/fetch';
+import { smoothScrollToDown } from 'utils/smoothScroll';
 
 class ImageFinder extends Component {
   state = {

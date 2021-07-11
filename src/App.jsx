@@ -1,4 +1,4 @@
-import ImageFinder from 'ImageFinder/ImageFinder';
+import ImageFinder from 'Components/ImageFinder';
 
 const App = () => {
   return <ImageFinder />;

@@ -1,5 +1,5 @@
 import { Skeleton } from '@material-ui/lab';
-import defaultImg from 'ImageFinder/defaultImages/default.jpg';
+import defaultImg from 'defaultImages/default.jpg';
 
 // import PropTypes from 'prop-types';
 
