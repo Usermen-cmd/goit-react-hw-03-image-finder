@@ -1,6 +1,7 @@
 import { Component } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
 import { RiAlarmWarningLine } from 'react-icons/ri';
+import LinearProgress from '@material-ui/core/LinearProgress';
 //Components
 import Button from 'Components/Button/Button';
 import ImageGallery from 'Components/ImageGallery/ImageGallery';
@@ -100,12 +101,14 @@ class ImageFinder extends Component {
         <Searchbar onSubmitForm={this.onSubmitForm} />
         {isFirstRender ? (
           <p style={{ textAlign: 'center', fontSize: '24px' }}>Что ищем..?</p>
-        ) : (
+        ) : hasImages ? (
           <ImageGallery
             imagesData={imagesData}
             onClick={this.onImageClick}
             isLoading={isLoading}
           />
+        ) : (
+          <LinearProgress />
         )}
         {hasImages && <Button onClick={this.onClickBtn} />}
         {modalImageData && (

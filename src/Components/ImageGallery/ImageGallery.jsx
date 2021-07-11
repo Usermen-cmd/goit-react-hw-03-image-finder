@@ -1,12 +1,12 @@
 import { Skeleton } from '@material-ui/lab';
 import defaultImg from 'defaultImages/default.jpg';
 
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 
 const ImageGallery = ({ imagesData, onClick, isLoading }) => {
   return (
     <ul className="ImageGallery">
-      {imagesData.map(({ id, webformatURL = defaultImg, tags }) => {
+      {imagesData.map(({ id, webformatURL, tags }) => {
         return (
           <li className="ImageGalleryItem" key={id}>
             {isLoading ? (
@@ -24,6 +24,26 @@ const ImageGallery = ({ imagesData, onClick, isLoading }) => {
       })}
     </ul>
   );
+};
+
+ImageGallery.defaultProps = {
+  imagesData: [
+    {
+      webformatURL: defaultImg,
+    },
+  ],
+};
+
+ImageGallery.propTypes = {
+  imagesData: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      webformatURL: PropTypes.string.isRequired,
+      tags: PropTypes.string.isRequired,
+    }),
+  ),
+  onClick: PropTypes.func.isRequired,
+  isLoading: PropTypes.bool.isRequired,
 };
 
 export default ImageGallery;
