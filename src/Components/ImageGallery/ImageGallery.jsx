@@ -1,4 +1,4 @@
-import { Skeleton } from '@material-ui/lab';
+import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 import defaultImg from 'defaultImages/default.jpg';
 
 import PropTypes from 'prop-types';
@@ -17,7 +17,11 @@ const ImageGallery = ({ imagesData, onClick, isLoading }) => {
                 onClick={onClick}
               />
             ) : (
-              <Skeleton variant="rect" width="100%" height="260px" />
+              <SkeletonTheme color="#dbd7d7" highlightColor="#ebe7e7">
+                <p>
+                  <Skeleton count={1} height={260} duration={0.5} />
+                </p>
+              </SkeletonTheme>
             )}
           </li>
         );
