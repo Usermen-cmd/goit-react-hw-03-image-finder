@@ -1,6 +1,7 @@
+import ImageFinder from 'ImageFinder/ImageFinder';
 
 const App = () => {
-  return "Hello";
+  return <ImageFinder />;
 };
 
 export default App;
