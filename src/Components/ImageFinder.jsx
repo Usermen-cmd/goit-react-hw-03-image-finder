@@ -1,5 +1,4 @@
 import { Component } from 'react';
-import toast, { Toaster } from 'react-hot-toast';
 import { RiAlarmWarningLine } from 'react-icons/ri';
 import LinearProgress from '@material-ui/core/LinearProgress';
 //Components
@@ -8,9 +7,12 @@ import ImageGallery from 'Components/ImageGallery/ImageGallery';
 import Modal from 'Components/Modal/Modal';
 import Searchbar from 'Components/Searchbar/Searchbar';
 //Utils
+import toast, { Toaster } from 'react-hot-toast';
 import { getImagesData } from 'utils/fetch';
 import { smoothScrollToDown } from 'utils/smoothScroll';
 import isValidQuerryString from 'utils/isValidQuerryString';
+//Styles
+import { ImageFinderApp } from './ImageFinder.styled';
 
 class ImageFinder extends Component {
   state = {
@@ -92,7 +94,7 @@ class ImageFinder extends Component {
     const isFirstRender = isLoading === 'first-render';
 
     return (
-      <div>
+      <ImageFinderApp>
         <Searchbar onSubmitForm={this.onSubmitForm} />
         {isFirstRender ? (
           <p style={{ textAlign: 'center', fontSize: '24px' }}>Что ищем..?</p>
@@ -116,7 +118,7 @@ class ImageFinder extends Component {
             icon: <RiAlarmWarningLine size="30" color="red" />,
           }}
         />
-      </div>
+      </ImageFinderApp>
     );
   }
 }

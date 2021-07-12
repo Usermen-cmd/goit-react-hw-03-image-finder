@@ -1,21 +1,23 @@
-import { MdClose } from 'react-icons/md';
 import { createPortal } from 'react-dom';
 import PropTypes from 'prop-types';
+//Components
 import defaultImage from 'defaultImages/default.jpg';
+import { MdClose } from 'react-icons/md';
+//Styles
+import { Overlay, OverlayModal, ModalButton } from './Modal.styled';
 
 const modalRootRef = document.getElementById('modal-root');
 
 const Modal = ({ imageData, onClick }) => {
   return createPortal(
-    <div className="Overlay" onClick={onClick}>
-      <div className="Modal">
+    <Overlay className="Overlay" onClick={onClick}>
+      <OverlayModal className="Modal">
         <img src={imageData.largeImageURL} alt={imageData.tags} />
-
-        <button className="Modal-btn" type="button">
+        <ModalButton className="Modal-btn" type="button">
           <MdClose size="40px" fill={'currentColor'} />
-        </button>
-      </div>
-    </div>,
+        </ModalButton>
+      </OverlayModal>
+    </Overlay>,
     modalRootRef,
   );
 };

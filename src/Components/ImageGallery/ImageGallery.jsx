@@ -1,19 +1,25 @@
-import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
-import defaultImg from 'defaultImages/default.jpg';
-
 import PropTypes from 'prop-types';
+//Utils
+import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
+//Components
+import defaultImg from 'defaultImages/default.jpg';
+//Styles
+import {
+  ImageGalleryList,
+  ImageGalleryItem,
+  ImageGalleryItemImage,
+} from './ImageGallery.styled';
 
 const ImageGallery = ({ imagesData, onClick, isLoading }) => {
   return (
-    <ul className="ImageGallery">
+    <ImageGalleryList>
       {imagesData.map(({ id, webformatURL, tags }) => {
         return (
-          <li className="ImageGalleryItem" key={id}>
+          <ImageGalleryItem key={id}>
             {isLoading ? (
-              <img
+              <ImageGalleryItemImage
                 src={webformatURL}
                 alt={tags}
-                className="ImageGalleryItem-image"
                 onClick={onClick}
               />
             ) : (
@@ -23,10 +29,10 @@ const ImageGallery = ({ imagesData, onClick, isLoading }) => {
                 </p>
               </SkeletonTheme>
             )}
-          </li>
+          </ImageGalleryItem>
         );
       })}
-    </ul>
+    </ImageGalleryList>
   );
 };
 
