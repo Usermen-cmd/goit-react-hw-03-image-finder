@@ -8,7 +8,7 @@ import {
   ImageGalleryList,
   ImageGalleryItem,
   ImageGalleryItemImage,
-} from './ImageGallery.styled';
+} from './ImageGallery.styles';
 
 const ImageGallery = ({ imagesData, onClick, isLoading }) => {
   return (

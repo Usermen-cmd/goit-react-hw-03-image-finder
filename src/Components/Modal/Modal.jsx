@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import defaultImage from 'defaultImages/default.jpg';
 import { MdClose } from 'react-icons/md';
 //Styles
-import { Overlay, OverlayModal, ModalButton } from './Modal.styled';
+import { Overlay, OverlayModal, ModalButton } from './Modal.styles';
 
 const modalRootRef = document.getElementById('modal-root');
 

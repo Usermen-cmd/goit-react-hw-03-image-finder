@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 //Styles
-import { ButtonMore } from './Button.styled';
+import { ButtonMore } from './Button.styles';
 
 const Button = ({ onClick }) => {
   return (

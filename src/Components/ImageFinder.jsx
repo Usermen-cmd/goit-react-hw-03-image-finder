@@ -12,7 +12,7 @@ import { getImagesData } from 'utils/fetch';
 import { smoothScrollToDown } from 'utils/smoothScroll';
 import isValidQuerryString from 'utils/isValidQuerryString';
 //Styles
-import { ImageFinderApp } from './ImageFinder.styled';
+import { ImageFinderApp } from './ImageFinder.styles';
 
 class ImageFinder extends Component {
   state = {
