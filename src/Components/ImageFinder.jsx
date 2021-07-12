@@ -10,11 +10,12 @@ import Searchbar from 'Components/Searchbar/Searchbar';
 //Utils
 import { getImagesData } from 'utils/fetch';
 import { smoothScrollToDown } from 'utils/smoothScroll';
+import isValidQuerryString from 'utils/isValidQuerryString';
 
 class ImageFinder extends Component {
   state = {
     imagesData: [],
-    queryString: '',
+    querryString: '',
     page: 1,
     modalImageData: null,
     isLoading: true,
@@ -25,18 +26,18 @@ class ImageFinder extends Component {
   }
 
   async componentDidUpdate(_, pervState) {
-    const { queryString, page } = this.state;
+    const { querryString, page } = this.state;
 
-    const isQueryStringUpdate = pervState.queryString !== queryString;
+    const isQuerryStringUpdate = pervState.querryString !== querryString;
     const isPageUpdate = pervState.page !== page;
 
-    if (isQueryStringUpdate || isPageUpdate) {
+    if (isQuerryStringUpdate || isPageUpdate) {
       try {
         this.setState({ isLoading: false });
-        const imagesData = await getImagesData(queryString, page);
+        const imagesData = await getImagesData(querryString, page);
         this.setState({ isLoading: true });
         if (!imagesData.length) {
-          toast.error('некорректный запрос');
+          toast.error('некорректный запрос, повторите попытку');
           return;
         }
 
@@ -47,7 +48,7 @@ class ImageFinder extends Component {
           smoothScrollToDown();
         }
 
-        if (isQueryStringUpdate) {
+        if (isQuerryStringUpdate) {
           this.setState({ imagesData, page: 1 });
         }
       } catch (error) {
@@ -55,16 +56,10 @@ class ImageFinder extends Component {
       }
     }
   }
-  componentWillUnmount() {
-    window.removeEventListener('keydown', this.onCloseModal);
-  }
 
-  onSubmitForm = queryString => {
-    if (!queryString) {
-      toast.error('Строка поиска пуста! Введите запрос');
-      return;
-    }
-    this.setState({ queryString });
+  onSubmitForm = querryString => {
+    const isValid = isValidQuerryString(querryString, this.state.querryString);
+    if (isValid) this.setState({ querryString });
   };
 
   onClickBtn = () => {
@@ -73,9 +68,9 @@ class ImageFinder extends Component {
     }));
   };
 
-  onImageClick = event => {
+  onImageClick = ({ target }) => {
     const modalImageData = this.state.imagesData.find(
-      el => el.webformatURL === event.target.src,
+      ({ webformatURL }) => webformatURL === target.src,
     );
     this.setState({ modalImageData });
     window.addEventListener('keydown', this.onCloseModal);
