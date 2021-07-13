@@ -20,32 +20,34 @@ class ImageFinder extends Component {
     querryString: '',
     page: 1,
     modalImageData: null,
-    isLoading: true,
+    status: null,
   };
 
   componentDidMount() {
-    this.setState({ isLoading: 'first-render' });
+    this.setState({ status: 'idle' });
   }
 
-  async componentDidUpdate(_, pervState) {
+  async componentDidUpdate(_, prevState) {
     const { querryString, page } = this.state;
 
-    const isQuerryStringUpdate = pervState.querryString !== querryString;
-    const isPageUpdate = pervState.page !== page;
+    const isQuerryStringUpdate = prevState.querryString !== querryString;
+    const isPageUpdate = prevState.page !== page;
 
     if (isQuerryStringUpdate || isPageUpdate) {
       try {
-        this.setState({ isLoading: false });
+        this.setState({ status: 'pending' });
         const imagesData = await getImagesData(querryString, page);
-        this.setState({ isLoading: true });
-        if (!imagesData.length) {
-          toast.error('некорректный запрос, повторите попытку');
-          return;
-        }
+        this.setState({ status: 'resolve' });
+        // if (!imagesData.length) {
+        //   toast.error('некорректный запрос, повторите попытку');
+        //   return;
+        // }
 
         if (isPageUpdate) {
           this.setState(prevState => {
-            return { imagesData: [...prevState.imagesData, ...imagesData] };
+            return {
+              imagesData: [...prevState.imagesData, ...imagesData],
+            };
           });
           smoothScrollToDown();
         }
@@ -89,25 +91,27 @@ class ImageFinder extends Component {
   };
 
   render() {
-    const { imagesData, modalImageData, isLoading } = this.state;
-    const hasImages = imagesData.length !== 0;
-    const isFirstRender = isLoading === 'first-render';
+    const { imagesData, modalImageData, status } = this.state;
+    const hasImage = imagesData.length > 0;
+    const isResolve = status === 'resolve';
+    const isIdle = status === 'idle';
+    const isPending = status === 'pending';
 
     return (
       <ImageFinderApp>
         <Searchbar onSubmitForm={this.onSubmitForm} />
-        {isFirstRender ? (
+        {isIdle && (
           <p style={{ textAlign: 'center', fontSize: '24px' }}>Что ищем..?</p>
-        ) : hasImages ? (
+        )}
+        {hasImage && (
           <ImageGallery
             imagesData={imagesData}
             onClick={this.onImageClick}
-            isLoading={isLoading}
+            status={isResolve}
           />
-        ) : (
-          <LinearProgress />
         )}
-        {hasImages && <Button onClick={this.onClickBtn} />}
+        {isPending && !hasImage && <LinearProgress />}
+        {hasImage && <Button onClick={this.onClickBtn} />}
         {modalImageData && (
           <Modal imageData={modalImageData} onClick={this.onCloseModal} />
         )}

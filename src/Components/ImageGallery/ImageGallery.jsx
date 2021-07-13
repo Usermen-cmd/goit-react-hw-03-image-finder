@@ -10,13 +10,13 @@ import {
   ImageGalleryItemImage,
 } from './ImageGallery.styles';
 
-const ImageGallery = ({ imagesData, onClick, isLoading }) => {
+const ImageGallery = ({ imagesData, onClick, status }) => {
   return (
     <ImageGalleryList>
       {imagesData.map(({ id, webformatURL, tags }) => {
         return (
           <ImageGalleryItem key={id}>
-            {isLoading ? (
+            {status ? (
               <ImageGalleryItemImage
                 src={webformatURL}
                 alt={tags}
@@ -25,7 +25,7 @@ const ImageGallery = ({ imagesData, onClick, isLoading }) => {
             ) : (
               <SkeletonTheme color="#dbd7d7" highlightColor="#ebe7e7">
                 <p>
-                  <Skeleton count={1} height={260} duration={0.5} />
+                  <Skeleton count={1} width={428} height={260} duration={0.5} />
                 </p>
               </SkeletonTheme>
             )}
@@ -53,7 +53,7 @@ ImageGallery.propTypes = {
     }),
   ),
   onClick: PropTypes.func.isRequired,
-  isLoading: PropTypes.bool.isRequired,
+  status: PropTypes.bool.isRequired,
 };
 
 export default ImageGallery;
